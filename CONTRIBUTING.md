@@ -5,6 +5,7 @@ When contributing to `ui-contrib` lib follow main repository [CONTRIBUTING.md](h
 #### skins
 
 To contribute custom skin you should do the following:
+
 1. Create separate directory for you skin.
 2. Inside this directory follow this structure:
 ```

@@ -1,0 +1,37 @@
+group 'com.kotcrab.vis.ui.contrib'
+version '1.0-SNAPSHOT'
+
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+
+    dependencies {
+    }
+}
+
+apply plugin: 'java'
+
+sourceSets {
+    main.java.srcDirs += 'src/main/'
+    test.java.srcDirs += 'src/test/'
+}
+
+repositories {
+    mavenCentral()
+    maven { url "https://oss.sonatype.org/content/repositories/snapshots/" }
+    maven { url "https://oss.sonatype.org/content/repositories/releases/" }
+}
+
+ext {
+    gdxVersion = '1.9.2'
+    visuiVersion = '1.0.1'
+}
+
+dependencies {
+    compile "com.badlogicgames.gdx:gdx:$gdxVersion"
+    compile "com.badlogicgames.gdx:gdx-backend-lwjgl3:$gdxVersion"
+    compile "com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-desktop"
+    compile "com.kotcrab.vis:vis-ui:$visuiVersion"
+    testCompile group: 'junit', name: 'junit', version: '4.11'
+}

@@ -11,6 +11,9 @@ buildscript {
 }
 
 apply plugin: 'java'
+apply plugin: 'eclipse'
+apply plugin: 'idea'
+
 
 sourceSets {
     main.java.srcDirs += 'src/main/'

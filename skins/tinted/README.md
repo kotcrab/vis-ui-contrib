@@ -43,7 +43,7 @@ After changing values of these colors, your whole skin gets recolored *immediate
 
 Considering it takes about 10 lines of JSON data to turn the theme upside down, I think this skin is worth a try.
 
-![Tinted](tinted-light.png)
+![Tinted](tinted-white.png)
 
 As a proof of concept, **Tinted** comes shipped slightly darker and with orange as the highlight color instead of the default blue.
 

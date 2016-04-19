@@ -12,101 +12,102 @@ buildscript {
 allprojects {
     version = 1.0
     ext.appName = 'skin-packer'
-}
 
-task pack << {
-    description 'Packages raw png files into texture atlas'
+    task pack << {
+        description 'Packages raw png files into texture atlas'
 
-    FileTree tree = fileTree('.') {
-        exclude '**/*.**'
-        include '**/x1-raw/'
-        include '**/x2-raw/'
+        FileTree tree = fileTree('/') {
+            exclude '**/*.**'
+            include '**/x1-raw/'
+            include '**/x2-raw/'
+        }
+
+        tree.visit { element ->
+            boolean x1Skin = element.name.equals('x1-raw')
+            boolean x2Skin = element.name.equals('x2-raw')
+            if (x1Skin || x2Skin) {
+                File parent = element.file.getParentFile()
+                println "Processing $parent"
+                File input = element.file
+                File output = x1Skin ? new File(parent, "x1") : new File(parent, "x2")
+                String skinName = parent.name
+
+                com.badlogic.gdx.tools.texturepacker.TexturePacker.process(
+                        input.absolutePath,
+                        output.absolutePath,
+                        skinName
+                )
+            }
+        }
     }
 
-    tree.visit { element ->
-        boolean x1Skin = element.name.equals('x1-raw')
-        boolean x2Skin = element.name.equals('x2-raw')
-        if (x1Skin || x2Skin) {
-            File parent = element.file.getParentFile()
+    task skin << {
+        description 'Compiles USL files into JSON. Copies JSON files to x1 and x2 dirs.'
+
+        FileTree uslTree = fileTree('/') {
+            include '**/*.usl'
+        }
+
+        uslTree.visit { element ->
+            File file = element.file
+            if (file.isDirectory()) return
+            File parent = file.getParentFile()
             println "Processing $parent"
-            File input = element.file
-            File output = x1Skin ? new File(parent, "x1") : new File(parent, "x2")
-            String skinName = parent.name
 
-            com.badlogic.gdx.tools.texturepacker.TexturePacker.process(
-                    input.absolutePath,
-                    output.absolutePath,
-                    skinName
-            )
+            File tempFile = new File(getTemporaryDir(), file.name.replaceFirst(~/\.[^\.]+$/, '') + ".json")
+            String[] args = [element.file.absolutePath, tempFile.absolutePath]
+            com.kotcrab.vis.usl.Main.main(args)
+
+            File x1Dir = new File(parent, "x1");
+            File x2Dir = new File(parent, "x2");
+
+            if (x1Dir.exists()) {
+                println "Coping result JSON to x1 directory"
+                copy {
+                    from tempFile.absolutePath
+                    into x1Dir.absolutePath
+                }
+            }
+
+            if (x2Dir.exists()) {
+                println "Coping result JSON to x2 directory"
+                copy {
+                    from tempFile.absolutePath
+                    into x2Dir.absolutePath
+                }
+            }
         }
+
+        FileTree jsonTree = fileTree('/') {
+            include '**/*.json'
+        }
+
+        jsonTree.visit { element ->
+            File file = element.file
+            if (file.isDirectory()) return
+            File parent = file.getParentFile()
+
+            File x1Dir = new File(parent, "x1");
+            File x2Dir = new File(parent, "x2");
+
+            if (x1Dir.exists()) {
+                println "Coping JSON to x1 directory"
+                copy {
+                    from file.absolutePath
+                    into x1Dir.absolutePath
+                }
+            }
+
+            if (x2Dir.exists()) {
+                println "Coping JSON to x2 directory"
+                copy {
+                    from file.absolutePath
+                    into x2Dir.absolutePath
+                }
+            }
+        }
+
     }
+
+    task compile(dependsOn: ['pack', 'skin'])
 }
-
-task skin << {
-    description 'Compiles USL files into JSON. Copies JSON files to x1 and x2 dirs.'
-
-    FileTree uslTree = fileTree('.') {
-        include '**/*.usl'
-    }
-
-    uslTree.visit { element ->
-        File file = element.file
-        if (file.isDirectory()) return
-        File parent = file.getParentFile()
-        println "Processing $parent"
-
-        File tempFile = new File(getTemporaryDir(), file.name.replaceFirst(~/\.[^\.]+$/, '') + ".json")
-        String[] args = [element.file.absolutePath, tempFile.absolutePath]
-        com.kotcrab.vis.usl.Main.main(args)
-
-        File x1Dir = new File(parent, "x1");
-        File x2Dir = new File(parent, "x2");
-
-        if (x1Dir.exists()) {
-            println "Coping result JSON to x1 directory"
-            copy {
-                from tempFile.absolutePath
-                into x1Dir.absolutePath
-            }
-        }
-
-        if (x2Dir.exists()) {
-            println "Coping result JSON to x2 directory"
-            copy {
-                from tempFile.absolutePath
-                into x2Dir.absolutePath
-            }
-        }
-    }
-
-    FileTree jsonTree = fileTree('.') {
-        include '**/*.json'
-    }
-
-    jsonTree.visit { element ->
-        File file = element.file
-        if (file.isDirectory()) return
-        File parent = file.getParentFile()
-
-        File x1Dir = new File(parent, "x1");
-        File x2Dir = new File(parent, "x2");
-
-        if (x1Dir.exists()) {
-            println "Coping JSON to x1 directory"
-            copy {
-                from file.absolutePath
-                into x1Dir.absolutePath
-            }
-        }
-
-        if (x2Dir.exists()) {
-            println "Coping JSON to x2 directory"
-            copy {
-                from file.absolutePath
-                into x2Dir.absolutePath
-            }
-        }
-    }
-}
-
-task compile(dependsOn: ['pack', 'skin'])

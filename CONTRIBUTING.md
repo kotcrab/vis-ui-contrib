@@ -7,7 +7,8 @@ When contributing to `ui-contrib` lib follow main repository [CONTRIBUTING.md](h
 To contribute custom skin you should do the following:
 
 1. Create separate directory for you skin.
-2. Inside newly created directory follow this structure:
+2. Modify `skins/settings.gradle` to include your skin
+3. Inside newly created directory follow this structure:
 ```
 \- skins
  \- my-skin
@@ -25,6 +26,11 @@ license you allow to use your skin. (highly recommend to use Apache2 - same lice
 
 `x1-raw`/`x2-raw` contains unpacked skin images. Skin packaging is automated by Gradle. From `skins` directory you can execute those tasks:
 
-- `gradle pack` - packages png files in `x1-raw` and `x2-raw` into texture atlases and places them into `x1` and `x2` directories
-- `gradle skin` - If skin uses USL then compiles USL to JSON and places result in `x1` and `x2`. If skin uses JSON then it is copied to `x1` and `x2`.
-- `gradle compile` - executes both `pack` and `skin` tasks
+- `gradle :my-skin:pack` - packages png files in `x1-raw` and `x2-raw` into texture atlases and places them into `x1` and `x2` directories
+- `gradle :my-skin:skin` - If skin uses USL then compiles USL to JSON and places result in `x1` and `x2`. If skin uses JSON then it is copied to `x1` and `x2`.
+- `gradle :my-skin:compile` - executes both `pack` and `skin` tasks
+
+Alternatively you can execute those tasks for all skins at once:
+- `gradle pack`
+- `gradle skin`
+- `gradle compile`

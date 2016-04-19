@@ -2,7 +2,7 @@ include <visui-1.0.2>
 
 ^com.badlogic.gdx.graphics.g2d.BitmapFont: {
 	default-font: { file: droid-sans-13.fnt }
-	small-font: { file: droid-sans-13.fnt }
+	small-font: default-font
 }
 
 ^com.badlogic.gdx.graphics.Color: {
@@ -22,13 +22,13 @@ include <visui-1.0.2>
   t-dark: {r: 0.1, g: 0.1, b: 0.1, a: 1}
   t-alpha: {r: 0, g: 0, b: 0, a: 0.5}
 
-  black inherits t-black: {}
-  white inherits t-white: {}
-  grey inherits t-light: {}
-  vis-blue inherits t-highlight: {}
-  vis-red inherits t-warn: {}
-  menuitem inherits t-medium-dark: {}
-  link-label inherits t-highlight: {}
+  black: t-black
+  white: t-white
+  grey: t-light
+  vis-blue: t-highlight
+  vis-red: t-warn
+  menuitem: t-medium-dark
+  link-label: t-highlight
 }
 
 ^TintedDrawable: {

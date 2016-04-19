@@ -16,7 +16,7 @@ allprojects {
     task pack << {
         description 'Packages raw png files into texture atlas'
 
-        FileTree tree = fileTree('/') {
+        FileTree tree = fileTree('.') {
             exclude '**/*.**'
             include '**/x1-raw/'
             include '**/x2-raw/'
@@ -44,7 +44,7 @@ allprojects {
     task skin << {
         description 'Compiles USL files into JSON. Copies JSON files to x1 and x2 dirs.'
 
-        FileTree uslTree = fileTree('/') {
+        FileTree uslTree = fileTree('.') {
             include '**/*.usl'
         }
 
@@ -78,7 +78,7 @@ allprojects {
             }
         }
 
-        FileTree jsonTree = fileTree('/') {
+        FileTree jsonTree = fileTree('.') {
             include '**/*.json'
         }
 

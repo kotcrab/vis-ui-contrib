@@ -65,19 +65,19 @@ By copy-pasting the `Color` and `TintedDrawable` definitions into your previous 
 
 #### Compatibility
 
-The raw assets were taken from `1.0.2-SNAPSHOT` **VisUI** version. Create an issue or pull request if anything is not working or missing. You can find all necessary skin files (including fonts) in [`skin`](skin) folder.
+The raw assets were taken from `1.0.2-SNAPSHOT` **VisUI** version. Create an issue or pull request if anything is not working or missing.
 
 #### Things to consider
 
 - Raw images amount went from about 95 to **42**, 13 of which are simple icons and 2 are font sheets. As we all know, *42* is the meaning of life, so it has got to mean *something*.
-- Some simple images (like check box tick, select box arrow, tree icons) were made simpler for easier scaling. Except for the font and icons, the UI still looks very nice when scaled *x2, x3,* and so on. If you change your font to more a pixel-art-ish one, you can achieve a very pleasant retro feel.
+- Some simple images (like check box tick, select box arrow, tree icons) were made simpler in `X1` for easier scaling. Except for the font and icons, the UI still looks very nice when scaled *x2, x3,* and so on. If you change your font to more a pixel-art-ish one, you can achieve a very pleasant retro feel.
 - The only images with more than one color are the color chooser assets, which should be left untouched anyway - they are black and white, and I don't imagine anyone would like to change that in an actual application.
 - `default` and `noborder` window styles were inverted: `noborder` *has* a border thanks to a transparent 1px rectangle. Although counter-intuitive, this was done (um) to *protect* you. The border does not look good with every setup, so you have to make a conscious decision to use it.
 - Check boxes, radio buttons and select boxes achieve their double-color look thanks to transparency. When choosing the colors and designing your GUIs, keep in mind that these assets should be on a background with enough contrast. If desperate, edit their images manually and fill the transparent blanks.
 - If you invert the scale by keeping `t-dark` color lighter and `t-light` darker, you'll create a theme with lighter backgrounds and darker widgets. As you probably know, some default desktop programs use such setups, usually with white(-ish) backgrounds and gray widgets.
 - The default `white` and `grey` colors are usually used as font colors of regular and disabled widgets respectively. By changing these, you can modify how the text is displayed on the screen. By default, `white` is an alias of `t-white`, and `grey` - of `t-light`.
 - Buttons, slider knobs and text fields now use shared drawable: `t-base`. Separate images for buttons, knobs and text fields were removed.
-- As soon as you remove one of the fonts, your atlas can be as small as 256x256px.
+- As soon as you remove one of the fonts, your atlas (of `X1` skin) can be as small as 256x256px.
 - `TextButton`, `Window` and other widgets extending `Table` could use `t-dot` (a single pixel) instead of `t-base` or `t-window` (nine patches) and apply paddings directly in Java. For example, setting button paddings to `4` with `t-dot` background would have pretty much the same effect as using `t-base`. I doubt that drawing GUI is worth such "optimizations", but keep in mind that it can be done. I should stop talking.
 
 ## License

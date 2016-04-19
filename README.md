@@ -1,6 +1,6 @@
 # vis-ui-contrib
 
-Community-driven extension and utilities for [**VisUI*](https://github.com/kotcrab/vis-editor/wiki/VisUI) that don't fit into the main repository.
+Community-driven extension and utilities for [**VisUI**](https://github.com/kotcrab/vis-editor/wiki/VisUI) that don't fit into the main repository.
 
 Projects:
 * `ui-contrib` - a separate library with various extensions and utilities.

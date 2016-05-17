@@ -1,19 +1,26 @@
-group 'com.kotcrab.vis.ui.contrib'
-version '1.0-SNAPSHOT'
+group 'com.kotcrab.vis'
+version '1.1.0-SNAPSHOT'
 
 buildscript {
     repositories {
         mavenCentral()
+        maven { url "https://oss.sonatype.org/content/repositories/snapshots/" }
+        maven { url "https://plugins.gradle.org/m2/" }
     }
 
     dependencies {
+        classpath "com.netflix.nebula:gradle-extra-configurations-plugin:3.0.3"
+        classpath "io.codearte.gradle.nexus:gradle-nexus-staging-plugin:0.5.3"
     }
 }
-
 apply plugin: 'java'
 apply plugin: 'eclipse'
 apply plugin: 'idea'
 
+apply plugin: 'io.codearte.nexus-staging'
+apply from: 'deploy.gradle'
+
+archivesBaseName = "vis-ui-contrib"
 
 sourceSets {
     main.java.srcDirs += 'src/main/'
@@ -21,14 +28,34 @@ sourceSets {
 }
 
 repositories {
+    mavenLocal()
     mavenCentral()
     maven { url "https://oss.sonatype.org/content/repositories/snapshots/" }
     maven { url "https://oss.sonatype.org/content/repositories/releases/" }
 }
 
+uploadArchives {
+    repositories {
+        mavenDeployer {
+            pom.project {
+                name 'vis-ui-contrib'
+                artifactId 'vis-ui-contrib'
+                packaging 'jar'
+                description 'Community driven extension and utilities for VisUI'
+            }
+        }
+    }
+}
+
+nexusStaging {
+    packageGroup = "com.kotcrab"
+    username = ossrhUsername
+    password = ossrhPassword
+}
+
 ext {
     gdxVersion = '1.9.2'
-    visuiVersion = '1.0.2'
+    visuiVersion = '1.1.0-SNAPSHOT'
 }
 
 dependencies {

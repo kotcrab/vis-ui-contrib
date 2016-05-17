@@ -18,6 +18,9 @@ apply plugin: 'eclipse'
 apply plugin: 'idea'
 
 apply plugin: 'io.codearte.nexus-staging'
+apply plugin: "nebula.provided-base"
+apply plugin: "nebula.optional-base"
+
 apply from: 'deploy.gradle'
 
 archivesBaseName = "vis-ui-contrib"
@@ -56,6 +59,8 @@ nexusStaging {
 ext {
     gdxVersion = '1.9.2'
     visuiVersion = '1.1.0-SNAPSHOT'
+    jnaVersion = '4.1.0'
+    jnaPlatformVersion = '3.5.2'
 }
 
 dependencies {
@@ -63,5 +68,7 @@ dependencies {
     compile "com.badlogicgames.gdx:gdx-backend-lwjgl3:$gdxVersion"
     compile "com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-desktop"
     compile "com.kotcrab.vis:vis-ui:$visuiVersion"
+    compile "net.java.dev.jna:jna:$jnaVersion", optional
+    compile "net.java.dev.jna:platform:$jnaPlatformVersion", optional
     testCompile group: 'junit', name: 'junit', version: '4.11'
 }

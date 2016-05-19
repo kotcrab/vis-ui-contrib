@@ -27,7 +27,7 @@ color-picker-selector-horizontal
   index: -1
 color-picker-selector-vertical
   rotate: false
-  xy: 284, 82
+  xy: 20, 12
   size: 1, 3
   orig: 1, 3
   offset: 0, 0
@@ -70,7 +70,7 @@ icon-close
   index: -1
 icon-drive
   rotate: false
-  xy: 175, 53
+  xy: 332, 121
   size: 18, 4
   orig: 22, 22
   offset: 2, 8
@@ -84,7 +84,7 @@ icon-file-audio
   index: -1
 icon-file-image
   rotate: false
-  xy: 136, 43
+  xy: 166, 43
   size: 12, 14
   orig: 22, 22
   offset: 5, 4
@@ -98,7 +98,7 @@ icon-file-pdf
   index: -1
 icon-file-text
   rotate: false
-  xy: 149, 43
+  xy: 179, 43
   size: 12, 14
   orig: 22, 22
   offset: 5, 4
@@ -131,9 +131,30 @@ icon-folder-star
   orig: 22, 22
   offset: 3, 2
   index: -1
+icon-refresh
+  rotate: false
+  xy: 205, 46
+  size: 12, 11
+  orig: 22, 22
+  offset: 5, 6
+  index: -1
+icon-star
+  rotate: false
+  xy: 61, 44
+  size: 14, 13
+  orig: 22, 22
+  offset: 4, 4
+  index: -1
+icon-star-outline
+  rotate: false
+  xy: 76, 44
+  size: 14, 13
+  orig: 22, 22
+  offset: 4, 4
+  index: -1
 icon-trash
   rotate: false
-  xy: 162, 42
+  xy: 192, 42
   size: 12, 15
   orig: 22, 22
   offset: 5, 3
@@ -148,7 +169,7 @@ t-base
   index: -1
 t-border
   rotate: false
-  xy: 20, 12
+  xy: 205, 42
   size: 3, 3
   split: 1, 1, 1, 1
   orig: 3, 3
@@ -156,35 +177,35 @@ t-border
   index: -1
 t-border-circle
   rotate: false
-  xy: 61, 43
+  xy: 91, 43
   size: 14, 14
   orig: 14, 14
   offset: 0, 0
   index: -1
 t-check-off
   rotate: false
-  xy: 76, 43
+  xy: 106, 43
   size: 14, 14
   orig: 14, 14
   offset: 0, 0
   index: -1
 t-check-on
   rotate: false
-  xy: 91, 43
+  xy: 121, 43
   size: 14, 14
   orig: 14, 14
   offset: 0, 0
   index: -1
 t-dot
   rotate: false
-  xy: 297, 104
+  xy: 24, 21
   size: 1, 1
   orig: 1, 1
   offset: 0, 0
   index: -1
 t-hknob
   rotate: false
-  xy: 332, 117
+  xy: 218, 49
   size: 6, 8
   orig: 6, 24
   offset: 0, 8
@@ -198,21 +219,21 @@ t-hline
   index: -1
 t-hslider
   rotate: false
-  xy: 24, 18
+  xy: 351, 121
   size: 1, 4
   orig: 1, 4
   offset: 0, 0
   index: -1
 t-radio-off
   rotate: false
-  xy: 106, 43
+  xy: 136, 43
   size: 14, 14
   orig: 14, 14
   offset: 0, 0
   index: -1
 t-radio-on
   rotate: false
-  xy: 121, 43
+  xy: 151, 43
   size: 14, 14
   orig: 14, 14
   offset: 0, 0
@@ -227,21 +248,21 @@ t-select
   index: -1
 t-select-down
   rotate: false
-  xy: 175, 48
+  xy: 332, 116
   size: 7, 4
   orig: 7, 4
   offset: 0, 0
   index: -1
 t-select-up
   rotate: false
-  xy: 194, 53
+  xy: 257, 63
   size: 7, 4
   orig: 7, 4
   offset: 0, 0
   index: -1
 t-tree-minus
   rotate: false
-  xy: 257, 62
+  xy: 306, 108
   size: 5, 5
   orig: 8, 8
   offset: 1, 2

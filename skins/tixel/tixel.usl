@@ -1,4 +1,4 @@
-include <visui-1.0.2>
+include <visui-1.1.0>
 
 ^com.badlogic.gdx.graphics.g2d.BitmapFont: {
   default-font: { file: droid-sans-13.fnt }
@@ -109,6 +109,7 @@ include <visui-1.0.2>
   white: {name: t-dot, color: white}
   window: {name: t-window, color: t-dark}
   window-bg: {name: t-dot, color: t-dark}
+  window-border-bg: {name: t-dot, color: t-dark}
   window-noborder: {name: t-window-border, color: t-dark}
   window-resizable: {name: t-window-resize, color: t-dark}
 }

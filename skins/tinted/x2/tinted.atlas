@@ -6,7 +6,7 @@ filter: Nearest,Nearest
 repeat: none
 color-picker-bar-selector
   rotate: false
-  xy: 702, 33
+  xy: 1006, 62
   size: 14, 28
   orig: 14, 28
   offset: 0, 0
@@ -20,21 +20,21 @@ color-picker-cross
   index: -1
 color-picker-selector-horizontal
   rotate: false
-  xy: 884, 54
+  xy: 950, 54
   size: 6, 1
   orig: 6, 1
   offset: 0, 0
   index: -1
 color-picker-selector-vertical
   rotate: false
-  xy: 1022, 207
+  xy: 644, 51
   size: 1, 6
   orig: 1, 6
   offset: 0, 0
   index: -1
 cursor
   rotate: false
-  xy: 913, 56
+  xy: 679, 58
   size: 3, 3
   split: 1, 1, 1, 1
   orig: 3, 3
@@ -56,14 +56,14 @@ font-small
   index: -1
 icon-arrow-left
   rotate: false
-  xy: 644, 62
+  xy: 679, 62
   size: 36, 28
   orig: 44, 44
   offset: 4, 8
   index: -1
 icon-arrow-right
   rotate: false
-  xy: 681, 62
+  xy: 716, 62
   size: 36, 28
   orig: 44, 44
   offset: 4, 8
@@ -84,63 +84,84 @@ icon-drive
   index: -1
 icon-file-audio
   rotate: false
-  xy: 855, 54
+  xy: 921, 54
   size: 28, 36
   orig: 44, 44
   offset: 8, 4
   index: -1
 icon-file-image
   rotate: false
-  xy: 913, 60
+  xy: 979, 60
   size: 26, 30
   orig: 44, 44
   offset: 9, 7
   index: -1
 icon-file-pdf
   rotate: false
-  xy: 884, 56
+  xy: 950, 56
   size: 28, 34
   orig: 44, 44
   offset: 8, 5
   index: -1
 icon-file-text
   rotate: false
-  xy: 940, 60
+  xy: 619, 11
   size: 26, 30
   orig: 44, 44
   offset: 9, 7
   index: -1
 icon-folder
   rotate: false
-  xy: 789, 66
+  xy: 824, 66
   size: 32, 24
   orig: 44, 44
   offset: 6, 12
   index: -1
 icon-folder-new
   rotate: false
-  xy: 718, 61
+  xy: 753, 61
   size: 35, 29
   orig: 44, 44
   offset: 5, 7
   index: -1
 icon-folder-parent
   rotate: false
-  xy: 822, 66
+  xy: 857, 66
   size: 32, 24
   orig: 44, 44
   offset: 6, 12
   index: -1
 icon-folder-star
   rotate: false
-  xy: 754, 64
+  xy: 789, 64
   size: 34, 26
   orig: 44, 44
   offset: 5, 9
   index: -1
+icon-refresh
+  rotate: false
+  xy: 646, 27
+  size: 26, 30
+  orig: 44, 44
+  offset: 9, 7
+  index: -1
+icon-star
+  rotate: false
+  xy: 890, 62
+  size: 30, 28
+  orig: 44, 44
+  offset: 7, 8
+  index: -1
+icon-star-outline
+  rotate: false
+  xy: 644, 58
+  size: 34, 32
+  orig: 44, 44
+  offset: 5, 6
+  index: -1
 icon-trash
   rotate: false
-  xy: 996, 60
+  xy: 541, 11
   size: 24, 30
   orig: 44, 44
   offset: 10, 7
@@ -155,7 +176,7 @@ t-base
   index: -1
 t-border
   rotate: false
-  xy: 619, 29
+  xy: 23, 1
   size: 3, 3
   split: 1, 1, 1, 1
   orig: 3, 3
@@ -163,42 +184,42 @@ t-border
   index: -1
 t-border-circle
   rotate: false
-  xy: 967, 62
+  xy: 512, 13
   size: 28, 28
   orig: 28, 28
   offset: 0, 0
   index: -1
 t-check-off
   rotate: false
-  xy: 644, 33
+  xy: 673, 29
   size: 28, 28
   orig: 28, 28
   offset: 0, 0
   index: -1
 t-check-on
   rotate: false
-  xy: 673, 33
+  xy: 702, 33
   size: 28, 28
   orig: 28, 28
   offset: 0, 0
   index: -1
 t-dot
   rotate: false
-  xy: 1022, 205
+  xy: 1022, 212
   size: 1, 1
   orig: 1, 1
   offset: 0, 0
   index: -1
 t-hknob
   rotate: false
-  xy: 746, 46
+  xy: 789, 38
   size: 6, 14
   orig: 6, 32
   offset: 0, 9
   index: -1
 t-hline
   rotate: false
-  xy: 754, 62
+  xy: 789, 62
   size: 32, 1
   orig: 32, 1
   offset: 0, 0
@@ -212,14 +233,14 @@ t-hslider
   index: -1
 t-radio-off
   rotate: false
-  xy: 512, 13
+  xy: 731, 32
   size: 28, 28
   orig: 28, 28
   offset: 0, 0
   index: -1
 t-radio-on
   rotate: false
-  xy: 717, 32
+  xy: 760, 32
   size: 28, 28
   orig: 28, 28
   offset: 0, 0
@@ -234,14 +255,14 @@ t-select
   index: -1
 t-select-down
   rotate: false
-  xy: 619, 33
+  xy: 789, 53
   size: 14, 8
   orig: 14, 8
   offset: 0, 0
   index: -1
 t-select-up
   rotate: false
-  xy: 541, 33
+  xy: 38, 14
   size: 14, 8
   orig: 14, 8
   offset: 0, 0
@@ -255,14 +276,14 @@ t-tree-minus
   index: -1
 t-tree-plus
   rotate: false
-  xy: 541, 18
+  xy: 646, 12
   size: 8, 14
   orig: 8, 14
   offset: 0, 0
   index: -1
 t-vknob
   rotate: false
-  xy: 38, 16
+  xy: 23, 5
   size: 14, 6
   orig: 32, 6
   offset: 9, 0
@@ -276,7 +297,7 @@ t-vline
   index: -1
 t-vslider
   rotate: false
-  xy: 789, 64
+  xy: 824, 64
   size: 8, 1
   orig: 8, 1
   offset: 0, 0

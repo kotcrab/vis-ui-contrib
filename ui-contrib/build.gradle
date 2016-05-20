@@ -70,5 +70,6 @@ dependencies {
     compile "com.kotcrab.vis:vis-ui:$visuiVersion"
     compile "net.java.dev.jna:jna:$jnaVersion", optional
     compile "net.java.dev.jna:platform:$jnaPlatformVersion", optional
+    compile "org.imgscalr:imgscalr-lib:4.2", optional
     testCompile group: 'junit', name: 'junit', version: '4.11'
 }

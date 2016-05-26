@@ -5,7 +5,7 @@ buildscript {
     }
     dependencies {
         classpath "com.badlogicgames.gdx:gdx-tools:1.9.2"
-        classpath "com.kotcrab.vis:vis-usl:0.1.2-SNAPSHOT"
+        classpath "com.kotcrab.vis:vis-usl:0.2.0"
     }
 }
 

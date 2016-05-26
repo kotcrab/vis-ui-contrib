@@ -65,11 +65,11 @@ By copy-pasting the `Color` and `TintedDrawable` definitions into your previous 
 
 #### Compatibility
 
-The raw assets were taken from `1.1.0-b1` **VisUI** version. Create an issue or pull request if anything is not working or missing.
+The raw assets were taken from `1.1.0` **VisUI** version. Create an issue or pull request if anything is not working or missing.
 
 #### Things to consider
 
-- Raw images amount went from about 95 to **42**, 13 of which are simple icons and 2 are font sheets. As we all know, *42* is the meaning of life, so it has got to mean *something*.
+- Raw images amount went **originally** from about 95 to **42**, 13 of which were simple icons and 2 were font sheets. As we all know, *42* is the meaning of life, so it has got to mean *something*.
 - Some simple images (like check box tick, select box arrow, tree icons) were made simpler in `X1` for easier scaling. Except for the font and icons, the UI still looks very nice when scaled *x2, x3,* and so on. If you change your font to more a pixel-art-ish one, you can achieve a very pleasant retro feel.
 - The only images with more than one color are the color chooser assets, which should be left untouched anyway - they are black and white, and I don't imagine anyone would like to change that in an actual application.
 - `default` and `noborder` window styles were inverted: `noborder` *has* a border thanks to a transparent 1px rectangle. Although counter-intuitive, this was done (um) to *protect* you. The border does not look good with every setup, so you have to make a conscious decision to use it.

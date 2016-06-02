@@ -25,11 +25,6 @@ apply from: 'deploy.gradle'
 
 archivesBaseName = "vis-ui-contrib"
 
-sourceSets {
-    main.java.srcDirs += 'src/main/'
-    test.java.srcDirs += 'src/test/'
-}
-
 repositories {
     mavenLocal()
     mavenCentral()
@@ -68,8 +63,11 @@ dependencies {
     compile "com.badlogicgames.gdx:gdx-backend-lwjgl3:$gdxVersion"
     compile "com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-desktop"
     compile "com.kotcrab.vis:vis-ui:$visuiVersion"
+
     compile "net.java.dev.jna:jna:$jnaVersion", optional
     compile "net.java.dev.jna:platform:$jnaPlatformVersion", optional
     compile "org.imgscalr:imgscalr-lib:4.2", optional
+    compile "com.kotcrab.vne:vne-runtime:0.0.1", optional
+    compile "com.kotcrab.vne:vne-win-thumbnails:0.0.1", optional
     testCompile group: 'junit', name: 'junit', version: '4.11'
 }

@@ -26,7 +26,7 @@ import com.kotcrab.vis.ui.widget.file.FileChooser.FileIconProvider;
 
 /**
  * {@link FileIconProvider} implementation supporting extended file chooser view modes (big icons, medium icons and
- * small icons). To use this you must include high resolution texture atlas for files icons. (see `assets/file-chooser-high-res.atlas`)
+ * small icons). To use this you must include high resolution texture atlas for files icons. (see `vis-ui-contrib/file-chooser-high-res.atlas`)
  * @author Kotcrab
  */
 public class HighResFileChooserIconProvider extends FileChooser.DefaultFileIconProvider implements Disposable {
@@ -40,7 +40,7 @@ public class HighResFileChooserIconProvider extends FileChooser.DefaultFileIconP
 
 	public HighResFileChooserIconProvider (FileChooser chooser) {
 		super(chooser);
-		highResTextures = new TextureAtlas(Gdx.files.classpath("assets/file-chooser-high-res.atlas"));
+		highResTextures = new TextureAtlas(Gdx.files.classpath("vis-ui-contrib/file-chooser-high-res.atlas"));
 		loadIcons(iconFolderBig, "icon-folder");
 		loadIcons(iconFileText, "icon-file-text");
 		loadIcons(iconFileImage, "icon-file-image");

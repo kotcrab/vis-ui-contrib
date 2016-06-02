@@ -21,10 +21,9 @@ import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
-import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
-import com.badlogic.gdx.utils.*;
+import com.badlogic.gdx.utils.GdxRuntimeException;
+import com.badlogic.gdx.utils.Scaling;
+import com.badlogic.gdx.utils.StreamUtils;
 import com.kotcrab.vis.ui.widget.file.FileChooser;
 import com.kotcrab.vis.ui.widget.file.FileChooser.FileIconProvider;
 import org.imgscalr.Scalr;
@@ -35,8 +34,6 @@ import java.awt.image.DataBufferInt;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
 
 /**
  * {@link FileIconProvider} implementation supporting displaying real files thumbnails. Imgscalr is used to create
@@ -45,72 +42,63 @@ import java.util.concurrent.Executors;
  * <p>
  * Note about memory usage: this may cause heap to grow very quickly even though the actual memory used after thumbnail
  * generation is low. You can use JVM argument `-XX:MaxHeapFreeRatio=70` to make JVM release allocated heap memory quicker.
+ * <p>
+ * Warning: Test showed that most JVM can't handle CMYK JPGs correctly, such JPGs will have wrong colors in thumbnail preview.
+ * For proper support for such JPGs different ImageIO JPG reader must be used for example CMYKJPEGImageReader from Monte
+ * Media Library. You can override {@link #readImage(FileHandle)} to plug such reader in.
  * @author Kotcrab
  * @see HighResFileChooserIconProvider
  */
-public class ImgScalrFileChooserIconProvider extends HighResFileChooserIconProvider {
+public class ImgScalrFileChooserIconProvider extends CachingFileChooserIconProvider {
 	private static final Color tmpColor = new Color();
-	private static final int MAX_CACHED = 600;
-	private static final int MAX_THREADS = 1;
 	private static final int MAX_IMAGE_WIDTH = 4096;
 	private static final int MAX_IMAGE_HEIGHT = 4096;
 
-	private final FileChooser chooser;
-	private ExecutorService executor = Executors.newFixedThreadPool(MAX_THREADS);
-	private Array<Thumbnail> thumbnails = new Array<Thumbnail>();
-
 	public ImgScalrFileChooserIconProvider (FileChooser chooser) {
 		super(chooser);
-		this.chooser = chooser;
 		System.setProperty("java.awt.headless", "true");
 	}
 
 	@Override
-	protected Drawable getImageIcon (final FileChooser.FileItem item) {
-		if (chooser.getViewMode().isThumbnailMode()) {
-			final FileChooser.ViewMode viewMode = chooser.getViewMode();
-			final float thumbSize = viewMode.getGridSize(chooser.getSizes());
-			final FileHandle file = item.getFile();
+	protected void scheduleThumbnailGeneration (final Thumbnail thumbnail, final FileChooser.ViewMode viewMode, final float thumbSize, final FileChooser.FileItem item) {
+		executor.execute(new Runnable() {
+			@Override
+			public void run () {
+				try {
+					FileHandle file = item.getFile();
+					ImgScalrFileChooserIconProvider.ImageInfo imageInfo = new ImgScalrFileChooserIconProvider.ImageInfo(file);
+					if (imageInfo.width > MAX_IMAGE_WIDTH || imageInfo.height > MAX_IMAGE_HEIGHT)
+						return;
 
-			Thumbnail thumbnail = getThumbnail(file);
-			if (thumbnail == null) {
-				thumbnail = new Thumbnail(file);
-				thumbnails.add(thumbnail);
-			}
-
-			if (thumbnail.getThumb(viewMode) != null) return thumbnail.getThumb(viewMode);
-
-			final Thumbnail fThumbnail = thumbnail;
-			executor.execute(new Runnable() {
-				@Override
-				public void run () {
-					try {
-						ImageInfo imageInfo = new ImageInfo(file);
-						if (imageInfo.width > MAX_IMAGE_WIDTH || imageInfo.height > MAX_IMAGE_HEIGHT)
-							return;
-
-						if (imageInfo.width < thumbSize || imageInfo.height < thumbSize) {
-							updateItemImageFromFile(fThumbnail, viewMode, item);
-							return;
-						}
-
-						final BufferedImage imageFile = ImageIO.read(file.file());
-						final BufferedImage scaledImg = Scalr.resize(imageFile, Scalr.Method.BALANCED, Scalr.Mode.AUTOMATIC, (int) thumbSize);
-
-						FileHandle tmpThumbFile = null;
-						if (scaledImg.getType() != BufferedImage.TYPE_INT_RGB && scaledImg.getType() != BufferedImage.TYPE_INT_ARGB) {
-							tmpThumbFile = FileHandle.tempFile("filechooser");
-							ImageIO.write(scaledImg, "png", tmpThumbFile.file());
-						}
-						updateItemImageFromScaled(fThumbnail, viewMode, item, scaledImg, tmpThumbFile);
-					} catch (Exception e) {
-						e.printStackTrace();
+					if (imageInfo.width < thumbSize || imageInfo.height < thumbSize) {
+						updateItemImageFromFile(thumbnail, viewMode, item);
+						return;
 					}
-				}
-			});
-		}
 
-		return super.getImageIcon(item);
+					final BufferedImage imageFile = readImage(file);
+					final BufferedImage scaledImg = Scalr.resize(imageFile, Scalr.Method.BALANCED, Scalr.Mode.AUTOMATIC, (int) thumbSize);
+
+					FileHandle tmpThumbFile = null;
+					if (scaledImg.getType() != BufferedImage.TYPE_INT_RGB && scaledImg.getType() != BufferedImage.TYPE_INT_ARGB) {
+						tmpThumbFile = FileHandle.tempFile("filechooser");
+						ImageIO.write(scaledImg, "png", tmpThumbFile.file());
+					}
+					updateItemImageFromScaled(thumbnail, viewMode, item, scaledImg, tmpThumbFile);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
+
+	/**
+	 * Reads image from file into BufferedImage. Override this if you want to add support for CMYK JPGs or want to provide
+	 * non standard image loading method. For example via AWT Toolkit.
+	 * @param file image file
+	 * @return buffered image read from file
+	 */
+	protected BufferedImage readImage (FileHandle file) throws IOException {
+		return ImageIO.read(file.file());
 	}
 
 	private void updateItemImageFromScaled (final Thumbnail thumbnail, final FileChooser.ViewMode viewMode,
@@ -129,7 +117,7 @@ public class ImgScalrFileChooserIconProvider extends HighResFileChooserIconProvi
 					}
 
 					thumbnail.addThumb(viewMode, texture);
-					item.setIcon(thumbnail.getThumb(viewMode), Scaling.fit);
+					item.setIcon(thumbnail.getThumbnail(viewMode), Scaling.fit);
 				} catch (GdxRuntimeException e) {
 					e.printStackTrace();
 				}
@@ -145,7 +133,7 @@ public class ImgScalrFileChooserIconProvider extends HighResFileChooserIconProvi
 				try {
 					Texture texture = new Texture(item.getFile());
 					thumbnail.addThumb(viewMode, texture);
-					item.setIcon(thumbnail.getThumb(viewMode), Scaling.fit);
+					item.setIcon(thumbnail.getThumbnail(viewMode), Scaling.fit);
 				} catch (GdxRuntimeException e) {
 					e.printStackTrace();
 				}
@@ -195,45 +183,7 @@ public class ImgScalrFileChooserIconProvider extends HighResFileChooserIconProvi
 	}
 
 	@Override
-	public void directoryChanged (FileHandle newDirectory) {
-		super.directoryChanged(newDirectory);
-		restartThumbnailGeneration();
-	}
-
-	@Override
-	public void viewModeChanged (FileChooser.ViewMode newViewMode) {
-		super.viewModeChanged(newViewMode);
-		restartThumbnailGeneration();
-	}
-
-	private void restartThumbnailGeneration () {
-		executor.shutdownNow();
-		executor = Executors.newFixedThreadPool(MAX_THREADS);
-		optimizeCache();
-	}
-
-	private Thumbnail getThumbnail (FileHandle file) {
-		for (Thumbnail thumbnail : thumbnails) {
-			if (thumbnail.file.equals(file)) {
-				return thumbnail;
-			}
-		}
-
-		return null;
-	}
-
-	private void optimizeCache () {
-		if (thumbnails.size > MAX_CACHED) {
-			for (int i = 0; i <= thumbnails.size - MAX_CACHED; i++) {
-				thumbnails.get(i).dispose();
-			}
-			thumbnails.removeRange(0, thumbnails.size - MAX_CACHED);
-		}
-	}
-
-	@Override
 	public void dispose () {
-		executor.shutdown();
 		super.dispose();
 	}
 
@@ -300,49 +250,6 @@ public class ImgScalrFileChooserIconProvider extends HighResFileChooserIconProvi
 				sv += cnt;
 			}
 			return ret;
-		}
-	}
-
-	private static class Thumbnail implements Disposable {
-		private FileHandle file;
-		private Texture textures[] = new Texture[3];
-		private TextureRegionDrawable thumbs[] = new TextureRegionDrawable[3];
-
-		public Thumbnail (FileHandle file) {
-			this.file = file;
-		}
-
-		public void addThumb (FileChooser.ViewMode viewMode, Texture texture) {
-			int index = -1;
-			if (viewMode == FileChooser.ViewMode.SMALL_ICONS)
-				index = 0;
-			if (viewMode == FileChooser.ViewMode.MEDIUM_ICONS)
-				index = 1;
-			if (viewMode == FileChooser.ViewMode.BIG_ICONS)
-				index = 2;
-
-			textures[index] = texture;
-			thumbs[index] = new TextureRegionDrawable(new TextureRegion(texture));
-		}
-
-		public Drawable getThumb (FileChooser.ViewMode viewMode) {
-			if (viewMode == FileChooser.ViewMode.SMALL_ICONS)
-				return thumbs[0];
-			if (viewMode == FileChooser.ViewMode.MEDIUM_ICONS)
-				return thumbs[1];
-			if (viewMode == FileChooser.ViewMode.BIG_ICONS)
-				return thumbs[2];
-			return null;
-		}
-
-		@Override
-		public void dispose () {
-			if (textures[0] != null)
-				textures[0].dispose();
-			if (textures[1] != null)
-				textures[1].dispose();
-			if (textures[2] != null)
-				textures[2].dispose();
 		}
 	}
 }

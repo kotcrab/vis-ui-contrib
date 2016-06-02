@@ -69,5 +69,6 @@ dependencies {
     compile "org.imgscalr:imgscalr-lib:4.2", optional
     compile "com.kotcrab.vne:vne-runtime:0.0.1", optional
     compile "com.kotcrab.vne:vne-win-thumbnails:0.0.1", optional
+
     testCompile group: 'junit', name: 'junit', version: '4.11'
 }

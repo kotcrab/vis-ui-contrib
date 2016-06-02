@@ -6,7 +6,7 @@ Projects:
 * `ui-contrib` - a separate library with various extensions and utilities.
 * `skins` - custom user submitted **VisUI** skins.
 
-See [contributing guidelines](https://github.com/kotcrab/vis-ui-contrib/blob/master/CONTRIBUTING.md).
+See [contributing guidelines](https://github.com/kotcrab/vis-ui-contrib/blob/master/CONTRIBUTING.md) and [wiki pages](https://github.com/kotcrab/vis-ui-contrib/wiki).
 
 ## See also
 * [VisEditor](http://vis.kotcrab.com/) - open source 2D game level editor made using VisUI

@@ -1,5 +1,5 @@
 group 'com.kotcrab.vis'
-version '1.1.6-SNAPSHOT'
+version '1.2.0-SNAPSHOT'
 
 buildscript {
     repositories {
@@ -53,7 +53,7 @@ nexusStaging {
 
 ext {
     gdxVersion = '1.9.2'
-    visuiVersion = '1.1.5'
+    visuiVersion = '1.1.6'
     jnaVersion = '4.1.0'
     jnaPlatformVersion = '3.5.2'
 }

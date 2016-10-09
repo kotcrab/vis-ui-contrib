@@ -65,7 +65,7 @@ By copy-pasting the `Color` and `TintedDrawable` definitions into your previous 
 
 #### Compatibility
 
-The raw assets were taken from `1.2.3` **VisUI** version. Create an issue or pull request if anything is not working or missing.
+The raw assets were taken from `1.2.4` **VisUI** version. Create an issue or pull request if anything is not working or missing.
 
 #### Things to consider
 

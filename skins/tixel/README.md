@@ -8,7 +8,7 @@ I'm no pixel artist, so don't be surprised if some images do not looks super-cri
 
 ### Compatibility
 
-The raw assets were taken from `1.2.3` **VisUI** version. Create an issue or pull request if anything is not working or missing.
+The raw assets were taken from `1.2.4` **VisUI** version. Create an issue or pull request if anything is not working or missing.
 
 ## License
 

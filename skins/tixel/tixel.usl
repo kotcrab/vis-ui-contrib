@@ -1,4 +1,4 @@
-include <visui-1.2.3>
+include <visui-1.2.4>
 
 ^com.badlogic.gdx.graphics.g2d.BitmapFont: {
   default-font: { file: droid-sans-13.fnt }

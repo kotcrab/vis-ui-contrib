@@ -51,8 +51,8 @@ import java.io.InputStream;
  */
 public class ImgScalrFileChooserIconProvider extends CachingFileChooserIconProvider {
 	private static final Color tmpColor = new Color();
-	private static final int MAX_IMAGE_WIDTH = 4096;
-	private static final int MAX_IMAGE_HEIGHT = 4096;
+	private static final int MAX_IMAGE_WIDTH = 8192;
+	private static final int MAX_IMAGE_HEIGHT = 8192;
 
 	public ImgScalrFileChooserIconProvider (FileChooser chooser) {
 		super(chooser);

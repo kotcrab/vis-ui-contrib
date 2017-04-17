@@ -4,7 +4,7 @@ buildscript {
         maven { url "https://oss.sonatype.org/content/repositories/snapshots/" }
     }
     dependencies {
-        classpath "com.badlogicgames.gdx:gdx-tools:1.9.2"
+        classpath "com.badlogicgames.gdx:gdx-tools:1.9.4"
         classpath "com.kotcrab.vis:vis-usl:0.2.0"
     }
 }
